@@ -1,7 +1,7 @@
 //! Pure conversion engine. Dictionaries stay in the executable's read-only pages.
 pub mod game_mode;
-const EN: &[u8] = include_bytes!("../data/english.txt");
-const TH: &[u8] = include_bytes!("../data/thai.txt");
+const EN: &[u8] = include_bytes!(concat!(env!("PIMPIT_DICT_DIR"), "/english.txt"));
+const TH: &[u8] = include_bytes!(concat!(env!("PIMPIT_DICT_DIR"), "/thai.txt"));
 
 // US QWERTY and Thai Kedmanee, including shifted punctuation.
 const US: &str = "`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./~!@#$%^&*()_+QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>?";
