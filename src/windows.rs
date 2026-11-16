@@ -1,6 +1,6 @@
 #![allow(unsafe_op_in_unsafe_fn)]
-use rightlang_rust::game_mode::{automatic_enabled, is_game_executable};
-use rightlang_rust::{Language, automatic, automatic_live, convert};
+use pimpit::game_mode::{automatic_enabled, is_game_executable};
+use pimpit::{Language, automatic, automatic_live, convert};
 use std::{
     cell::RefCell,
     mem::{size_of, zeroed},
@@ -111,8 +111,8 @@ impl Default for Settings {
             auto_delay_ms: 120,
             pause_auto_in_games: true,
             game_exes: Vec::new(),
-            update_repo: option_env!("RIGHTLANG_UPDATE_REPO")
-                .unwrap_or("Samsxx001/rightlang-rust")
+            update_repo: option_env!("PIMPIT_UPDATE_REPO")
+                .unwrap_or("Samsxx001/Pimpit")
                 .into(),
             exclude: vec![
                 "keepass.exe".into(),
@@ -138,7 +138,14 @@ fn settings() -> &'static Settings {
 }
 fn read_settings() -> Settings {
     let mut cfg = Settings::default();
-    if let Ok(text) = std::fs::read_to_string(app_dir().join("rightlang.ini")) {
+    // Keep existing user preferences when moving from the previous product name.
+    let directory = app_dir();
+    let config = if directory.join("pimpit.ini").exists() {
+        directory.join("pimpit.ini")
+    } else {
+        directory.join("rightlang.ini")
+    };
+    if let Ok(text) = std::fs::read_to_string(config) {
         for line in text
             .lines()
             .filter(|l| !l.trim_start().starts_with(['#', ';']))
@@ -948,7 +955,7 @@ unsafe fn tray(hwnd: HWND, operation: u32) {
     );
     let text = format!(
         concat!(
-            "RightLang Rust ",
+            "Pimpit ",
             env!("CARGO_PKG_VERSION"),
             " | {} | {} | input resets {}"
         ),
@@ -986,9 +993,9 @@ fn request_repair() {
 unsafe fn diagnostics(hwnd: HWND) {
     let text = format!(
         concat!(
-            "RightLang Rust ",
+            "Pimpit ",
             env!("CARGO_PKG_VERSION"),
-            "\n\nRaw Input: {}\nPhysical key events: {}\nManual requests: {}\nConversions: {}\nInput resets: {}\nFailed batches: {}\nQueue overflows: {}\nHotkey conflicts: {}\nShift+Backspace registered: {}\nLast result: {}\n\nAuto corrects while typing without Space (120 ms default).\nGame pause: enabled by default; see tray tooltip.\nShift+Backspace / Ctrl+Alt+Space: convert latest typed word\nCtrl+Alt+Z: undo\nCtrl+Alt+P: pause/resume\nCtrl+Alt+R: refresh input\n\nNo typed text is written to files. Settings: rightlang.ini"
+            "\n\nRaw Input: {}\nPhysical key events: {}\nManual requests: {}\nConversions: {}\nInput resets: {}\nFailed batches: {}\nQueue overflows: {}\nHotkey conflicts: {}\nShift+Backspace registered: {}\nLast result: {}\n\nAuto corrects while typing without Space (120 ms default).\nGame pause: enabled by default; see tray tooltip.\nShift+Backspace / Ctrl+Alt+Space: convert latest typed word\nCtrl+Alt+Z: undo\nCtrl+Alt+P: pause/resume\nCtrl+Alt+R: refresh input\n\nNo typed text is written to files. Settings: pimpit.ini"
         ),
         RAW_OK.load(Relaxed),
         RAW_EVENTS.load(Relaxed),
@@ -1004,7 +1011,7 @@ unsafe fn diagnostics(hwnd: HWND) {
     MessageBoxW(
         hwnd,
         w(&text).as_ptr(),
-        w("RightLang Rust - Status").as_ptr(),
+        w("Pimpit - Status").as_ptr(),
         MB_OK | MB_ICONINFORMATION,
     );
 }
@@ -1230,7 +1237,7 @@ pub fn show_error(text: &str) {
         MessageBoxW(
             null_mut(),
             w(text).as_ptr(),
-            w("RightLang Rust").as_ptr(),
+            w("Pimpit").as_ptr(),
             MB_OK | MB_ICONERROR,
         );
     }
@@ -1261,7 +1268,7 @@ pub fn run() -> Result<(), String> {
         let hwnd = CreateWindowExW(
             0,
             name.as_ptr(),
-            w("RightLang Rust").as_ptr(),
+            w("Pimpit").as_ptr(),
             0,
             0,
             0,
