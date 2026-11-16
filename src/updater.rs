@@ -22,7 +22,7 @@ const fn version_code(version: &str) -> u32 {
 // HTTP client, or extra resident thread is needed by the keyboard process.
 pub fn launch(repository: &str) -> Result<(), String> {
     if !valid_repository(repository) {
-        return Err("ยังไม่ได้ตั้งค่า GitHub สำหรับอัปเดต\nใส่ update_repo=ชื่อผู้ใช้/ชื่อโปรเจกต์ ใน rightlang.ini หรือใช้รุ่นที่เผยแพร่ผ่าน GitHub Releases".into());
+        return Err("ยังไม่ได้ตั้งค่า GitHub สำหรับอัปเดต\nใส่ update_repo=ชื่อผู้ใช้/ชื่อโปรเจกต์ ใน pimpit.ini หรือใช้รุ่นที่เผยแพร่ผ่าน GitHub Releases".into());
     }
     let executable = std::env::current_exe().map_err(|e| e.to_string())?;
     let stamp = std::time::SystemTime::now()
@@ -30,7 +30,7 @@ pub fn launch(repository: &str) -> Result<(), String> {
         .map_err(|e| e.to_string())?
         .as_nanos();
     let directory =
-        std::env::temp_dir().join(format!("RightLang-update-{}-{stamp}", std::process::id()));
+        std::env::temp_dir().join(format!("Pimpit-update-{}-{stamp}", std::process::id()));
     fs::create_dir(&directory).map_err(|e| e.to_string())?;
     let script = directory.join("Update.ps1");
     let content = format!(
@@ -43,6 +43,7 @@ pub fn launch(repository: &str) -> Result<(), String> {
         .ok_or("SystemRoot is not set")?
         .join("System32/WindowsPowerShell/v1.0/powershell.exe");
     let result = Command::new(powershell)
+        .env_remove("PSModulePath")
         .args([
             "-NoProfile",
             "-NonInteractive",
@@ -88,7 +89,7 @@ fn valid_repository(value: &str) -> bool {
 mod tests {
     #[test]
     fn repository_is_a_slug_not_an_arbitrary_url_or_command() {
-        for good in ["owner/RightLang-Rust", "user.name/rightlang_rust"] {
+        for good in ["owner/Pimpit", "user.name/pimpit"] {
             assert!(super::valid_repository(good));
         }
         for bad in [
