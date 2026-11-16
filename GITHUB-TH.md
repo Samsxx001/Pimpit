@@ -11,15 +11,15 @@
 3. นำซอร์สขึ้น repository โดยรวม `.github/workflows/release.yml`, `src`, `tools`, `data`,
    Cargo.toml, Cargo.lock, LICENSE และเอกสารด้วย ไม่ต้องอัปโหลด `target`, `dist`, ZIP หรือรุ่นเก่า
 4. ที่หน้า repository เลือก Releases > Draft a new release > Choose a tag > สร้าง tag
-   `v0.1.4` จาก branch ที่มีซอร์สนี้ แล้ว Publish release
-5. รอแท็บ Actions แสดงสำเร็จ แล้วแจกไฟล์ `Pimpit-0.1.4-windows-x64.zip`
+   `v0.1.5` จาก branch ที่มีซอร์สนี้ แล้ว Publish release
+5. รอแท็บ Actions แสดงสำเร็จ แล้วแจกไฟล์ `Pimpit-0.1.5-windows-x64.zip`
    ใน Releases ให้คนอื่นแตกไฟล์และเปิด `Pimpit.exe`
 
 ถ้าใช้ Git ในเครื่องแทนหน้าเว็บ ให้ push ซอร์สก่อนแล้วใช้:
 
 ```powershell
-git tag v0.1.4
-git push origin v0.1.4
+git tag v0.1.5
+git push origin v0.1.5
 ```
 
 GitHub Actions จะทดสอบ สร้าง Windows x64 ZIP และ SHA-256 เผยแพร่ Release
@@ -29,8 +29,8 @@ GitHub Actions จะทดสอบ สร้าง Windows x64 ZIP และ S
 
 ## ออกเวอร์ชันถัดไป
 
-แก้โค้ด เปลี่ยน version ใน Cargo.toml และ Cargo.lock เช่น `0.1.5`
-แล้ว push tag `v0.1.5` หรือสร้าง Release/tag ใหม่ผ่านเว็บตามข้างต้น
+แก้โค้ด เปลี่ยน version ใน Cargo.toml และ Cargo.lock เช่น `0.1.6`
+แล้ว push tag `v0.1.6` หรือสร้าง Release/tag ใหม่ผ่านเว็บตามข้างต้น
 รอ workflow สำเร็จ ผู้ใช้รุ่น 0.1.4 ขึ้นไปจึงกดตรวจสอบอัปเดตได้
 เวอร์ชันก่อน 0.1.4 ต้องดาวน์โหลดและเปิดรุ่นใหม่นี้ครั้งแรกด้วยตนเอง
 
