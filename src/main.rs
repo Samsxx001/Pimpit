@@ -11,5 +11,5 @@ fn main() {
         std::process::exit(1);
     }
     #[cfg(not(windows))]
-    eprintln!("RightLang Rust requires Windows 10/11.");
+    eprintln!("Pimpit requires Windows 10/11.");
 }
