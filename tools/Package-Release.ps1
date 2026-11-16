@@ -10,7 +10,7 @@ $stage = Join-Path ([IO.Path]::GetTempPath()) ('Pimpit-package-' + [guid]::NewGu
 [void][IO.Directory]::CreateDirectory($output)
 try {
     Copy-Item -LiteralPath $Executable -Destination (Join-Path $stage 'Pimpit.exe')
-    foreach ($name in @('pimpit.ini', 'README-TH.md', 'VALIDATION-TH.md', 'GITHUB-TH.md', 'LICENSE')) {
+    foreach ($name in @('pimpit.ini', 'README.txt', 'README-TH.txt', 'VALIDATION-TH.md', 'GITHUB-TH.md', 'LICENSE')) {
         Copy-Item -LiteralPath (Join-Path $root $name) -Destination $stage
     }
     [void][IO.Directory]::CreateDirectory((Join-Path $stage 'licenses'))
@@ -24,7 +24,7 @@ try {
     Write-Output $archive
 } finally {
     # Delete only known files, after resolving the unique temp directory.
-    foreach ($name in @('pimpit.ini', 'README-TH.md', 'VALIDATION-TH.md', 'GITHUB-TH.md', 'LICENSE', 'Pimpit.exe')) {
+    foreach ($name in @('pimpit.ini', 'README.txt', 'README-TH.txt', 'VALIDATION-TH.md', 'GITHUB-TH.md', 'LICENSE', 'Pimpit.exe')) {
         $file = Join-Path $stage $name
         if (Test-Path -LiteralPath $file) { Remove-Item -LiteralPath $file }
     }
