@@ -1,0 +1,42 @@
+name: Windows release
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  release:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    env:
+      PIMPIT_UPDATE_REPO: ${{ github.repository }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check tag and build
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $version = (Select-String -Path Cargo.toml -Pattern '^version = "(.+)"').Matches[0].Groups[1].Value
+          if ($env:GITHUB_REF_TYPE -ne 'tag' -or $env:GITHUB_REF_NAME -cne "v$version") { throw 'Run this workflow for a vVERSION tag matching Cargo.toml.' }
+          cargo test --locked
+          if ($LASTEXITCODE) { throw 'Rust tests failed' }
+          ./tools/Test-Updater.ps1
+          & "$env:SystemRoot/System32/WindowsPowerShell/v1.0/powershell.exe" -NoProfile -ExecutionPolicy Bypass -File ./tools/Test-Updater.ps1
+          if ($LASTEXITCODE) { throw 'Windows PowerShell updater tests failed' }
+          cargo build --release --locked
+          if ($LASTEXITCODE) { throw 'Build failed' }
+          ./tools/Package-Release.ps1 -Executable target/release/pimpit.exe
+      - name: Publish release
+        shell: pwsh
+        run: |
+          $files = @(Get-ChildItem ./release -File | ForEach-Object { $_.FullName })
+          gh release view "$env:GITHUB_REF_NAME" --json tagName 2>$null
+          if ($LASTEXITCODE -eq 0) {
+            gh release upload "$env:GITHUB_REF_NAME" @files --clobber
+          } else {
+            gh release create "$env:GITHUB_REF_NAME" @files --verify-tag --title "Pimpit $env:GITHUB_REF_NAME" --generate-notes
+          }
+          if ($LASTEXITCODE) { throw 'Release upload failed' }
