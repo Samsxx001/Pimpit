@@ -1,0 +1,16 @@
+[package]
+name = "rightlang-rust"
+version = "0.1.4"
+edition = "2024"
+license = "MIT"
+description = "Small offline Thai/English keyboard layout corrector for Windows"
+
+[dependencies]
+windows-sys = { version = "0.61.2", features = ["Win32_Foundation", "Win32_Security", "Win32_System_Memory", "Win32_System_SystemInformation", "Win32_System_Threading", "Win32_System_LibraryLoader", "Win32_System_RemoteDesktop", "Win32_UI_WindowsAndMessaging", "Win32_UI_Input_KeyboardAndMouse", "Win32_UI_Shell", "Win32_UI_Controls", "Win32_Graphics_Gdi"] }
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"

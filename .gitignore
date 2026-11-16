@@ -1,0 +1,6 @@
+/target/
+/dist/*.log
+/dist/
+/release/
+/RightLang-Rust-*/
+/*.zip
