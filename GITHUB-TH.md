@@ -7,13 +7,13 @@
 ## เริ่มครั้งแรก
 
 1. สมัครหรือเข้า https://github.com แล้วเปิด https://github.com/new
-2. ตั้งชื่อ `rightlang-rust` เลือก **Public** แล้วกด Create repository
+2. ตั้งชื่อ `pimpit` เลือก **Public** แล้วกด Create repository
 3. นำซอร์สขึ้น repository โดยรวม `.github/workflows/release.yml`, `src`, `tools`, `data`,
    Cargo.toml, Cargo.lock, LICENSE และเอกสารด้วย ไม่ต้องอัปโหลด `target`, `dist`, ZIP หรือรุ่นเก่า
 4. ที่หน้า repository เลือก Releases > Draft a new release > Choose a tag > สร้าง tag
    `v0.1.4` จาก branch ที่มีซอร์สนี้ แล้ว Publish release
-5. รอแท็บ Actions แสดงสำเร็จ แล้วแจกไฟล์ `RightLang-Rust-0.1.4-windows-x64.zip`
-   ใน Releases ให้คนอื่นแตกไฟล์และเปิด `RightLang-Rust.exe`
+5. รอแท็บ Actions แสดงสำเร็จ แล้วแจกไฟล์ `Pimpit-0.1.4-windows-x64.zip`
+   ใน Releases ให้คนอื่นแตกไฟล์และเปิด `Pimpit.exe`
 
 ถ้าใช้ Git ในเครื่องแทนหน้าเว็บ ให้ push ซอร์สก่อนแล้วใช้:
 
@@ -35,12 +35,12 @@ GitHub Actions จะทดสอบ สร้าง Windows x64 ZIP และ S
 เวอร์ชันก่อน 0.1.4 ต้องดาวน์โหลดและเปิดรุ่นใหม่นี้ครั้งแรกด้วยตนเอง
 
 ยอมรับเฉพาะ stable tag `vX.Y.Z` ที่ใหม่กว่ารุ่นปัจจุบัน และไฟล์
-`RightLang-Rust-X.Y.Z-windows-x64.zip` จาก repository ที่กำหนด
+`Pimpit-X.Y.Z-windows-x64.zip` จาก repository ที่กำหนด
 ตรวจขนาดและ SHA-256 จาก GitHub API ตรวจ executable x64 และแตกเฉพาะ exe
-จึงไม่แตกพาธที่อันตรายจาก ZIP หรือเขียนทับ rightlang.ini
+จึงไม่แตกพาธที่อันตรายจาก ZIP หรือเขียนทับ pimpit.ini
 
 หลังดาวน์โหลดและตรวจเสร็จจึงปิดโปรแกรมอย่างสุภาพ เปลี่ยน exe แบบ File.Replace
-สำรองเป็น `RightLang-Rust.exe.previous` แล้วเปิดรุ่นใหม่
+สำรองเป็น `Pimpit.exe.previous` แล้วเปิดรุ่นใหม่
 ตรวจสถานะเริ่มทำงาน/Raw Input ภายใน 10 วินาที ถ้าไม่พร้อมจะคืน exe เดิมและเปิดใหม่
 การตรวจนี้ยืนยันการเริ่มโปรแกรม ไม่รับประกันว่าแอปทุกชนิดแก้คำได้ถูกต้อง
 เก็บโปรแกรมในโฟลเดอร์ที่ผู้ใช้มีสิทธิ์เขียน เช่น Documents ไม่ใช่ Program Files
@@ -53,12 +53,12 @@ SHA-256 ตรวจความสมบูรณ์ของไฟล์จา
 กำหนดก่อน build:
 
 ```powershell
-$env:RIGHTLANG_UPDATE_REPO = 'OWNER/rightlang-rust'
+$env:PIMPIT_UPDATE_REPO = 'OWNER/pimpit'
 .\build.ps1 -Test -BuildOnly
 .\tools\Package-Release.ps1
 ```
 
-หรือแก้ `update_repo=OWNER/rightlang-rust` ใน rightlang.ini แล้วเปิดใหม่
+หรือแก้ `update_repo=OWNER/pimpit` ใน pimpit.ini แล้วเปิดใหม่
 ค่าว่างจะใช้ repo ที่ฝังใน exe รุ่นที่ GitHub build ให้
 หากยังไม่มี repo จะมีข้อความแจ้งเมื่อเลือกตรวจสอบอัปเดต ไม่มีแหล่งอัปเดตสมมติ
 
