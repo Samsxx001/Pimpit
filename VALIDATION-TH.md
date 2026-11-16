@@ -8,7 +8,11 @@
 - ตัวอัปเดตทดสอบ 19 ข้อทั้ง PowerShell 7 และ Windows PowerShell 5.1: เลือกรุ่นใหม่, ป้องกัน downgrade/prerelease, URL ต่างแหล่ง, hash หาย, ขนาดผิด, asset ซ้ำ, ไฟล์ไม่ใช่ PE และ ZIP path traversal
 - ทดสอบ File.Replace กับไฟล์จริงในโฟลเดอร์ชั่วคราว: ติดตั้ง สำรอง ย้อนกลับเมื่อจำลองเริ่มโปรแกรมล้มเหลว และรักษา ini เดิม
 - GitHub Actions รุ่น 0.1.4 ผ่าน และดาวน์โหลดจาก Release จริงผ่านการตรวจขนาด, SHA-256 จาก GitHub API และ PE x64 แล้ว
-- รุ่น 0.1.5 เพิ่มการ link CRT แบบ static บน GitHub เพื่อไม่ต้องติดตั้ง Visual C++ Runtime แยก กำลังตรวจ Release และการติดตั้งจริง
+- GitHub Actions รุ่น 0.1.5 ผ่าน ตรวจ import table แล้วมีเฉพาะ DLL ระบบ Windows ไม่มี VCRUNTIME140.dll หรือ MSVCP
+- ทดสอบอัปเดตจริง 0.1.4 → 0.1.5 จาก GitHub โดยใช้ Get-UpdateAsset, Expand-UpdateBinary, Stop-InstalledRuntime, Install-UpdateBinary และ Start-HealthyRuntime ชุดเดียวกับเมนูอัปเดต
+- ตรวจ SHA-256 ก่อนติดตั้ง สำรอง exe และเปิดรุ่นใหม่สำเร็จ สถานะ Raw Input พร้อม ใช้ process ใหม่ ค่าตั้งค่า pimpit.ini ตรงกับ hash ก่อนอัปเดต
+- SHA-256 ของ ZIP ที่ GitHub เผยแพร่รุ่น 0.1.5: 3cd383016d557b766069b350c01c4c3ef300148f810ed3e2d2a5d7f66fe37bfd
+- การทดสอบติดตั้งจริงเรียกฟังก์ชันตัวอัปเดตโดยตรง ไม่ได้คลิกเมนูและกล่องยืนยันจาก system tray; การย้อนกลับอัตโนมัติทดสอบด้วยการจำลองเริ่มโปรแกรมล้มเหลวบนไฟล์จริงในโฟลเดอร์ชั่วคราว
 - การแก้คำยังออฟไลน์ ติดต่อ GitHub เฉพาะเมื่อผู้ใช้เลือกตรวจสอบอัปเดต ตัวช่วยอัปเดตไม่ค้างทำงานเมื่อปิดหน้าต่างอัปเดต
 
 ## ผลรุ่น 0.1.3
