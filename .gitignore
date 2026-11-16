@@ -3,4 +3,9 @@
 /dist/
 /release/
 /RightLang-Rust-*/
+/Pimpit-*/
 /*.zip
+/data/*-raw.txt
+/data/english.txt
+/data/thai.txt
+/data/dictionaries.zip
