@@ -25,7 +25,7 @@ try {
     if ($BuildOnly) { Write-Output (Join-Path $PSScriptRoot 'target/release/pimpit.exe'); return }
     New-Item -ItemType Directory -Path dist/licenses -Force | Out-Null
     Copy-Item -LiteralPath target/release/pimpit.exe -Destination dist/Pimpit.exe
-    Copy-Item -LiteralPath README-TH.md,VALIDATION-TH.md,GITHUB-TH.md,LICENSE -Destination dist
+    Copy-Item -LiteralPath README.txt,README-TH.txt,VALIDATION-TH.md,GITHUB-TH.md,LICENSE -Destination dist
     if (-not (Test-Path -LiteralPath dist/pimpit.ini)) {
         if (Test-Path -LiteralPath dist/rightlang.ini) { Copy-Item -LiteralPath dist/rightlang.ini -Destination dist/pimpit.ini }
         else { Copy-Item -LiteralPath pimpit.ini -Destination dist }
