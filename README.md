@@ -1,4 +1,4 @@
-# RightLang Rust
+# Pimpit
 
 โปรแกรมแก้ข้อความที่พิมพ์ผิดแป้นไทย/อังกฤษ สำหรับ Windows 10/11 x64 เขียนด้วย Rust
 
@@ -10,8 +10,8 @@
 
 ## ดาวน์โหลด
 
-เปิด [Releases](../../releases/latest) ดาวน์โหลดไฟล์ `RightLang-Rust-VERSION-windows-x64.zip`
-แตกไฟล์ลงโฟลเดอร์ที่เขียนได้ แล้วเปิด `RightLang-Rust.exe`
+เปิด [Releases](../../releases/latest) ดาวน์โหลดไฟล์ `Pimpit-VERSION-windows-x64.zip`
+แตกไฟล์ลงโฟลเดอร์ที่เขียนได้ แล้วเปิด `Pimpit.exe`
 รุ่นก่อน 0.1.4 ต้องดาวน์โหลดรุ่นใหม่ด้วยตนเองครั้งแรก
 
 โปรแกรมนี้เป็นโครงการอิสระ ไม่ใช่ RightLang ตัวเดิม
